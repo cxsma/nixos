@@ -26,5 +26,10 @@
       owner = "denful";
       repo = "den";
     };
+    import-tree = {
+      type = "github";
+      owner = "denful";
+      repo = "import-tree";
+    };
   };
 }
