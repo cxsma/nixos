@@ -16,6 +16,16 @@
         };
       };
     };
+    disko = {
+      type = "github";
+      owner = "nix-community";
+      repo = "disko";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
     flake-parts = {
       type = "github";
       owner = "hercules-ci";
