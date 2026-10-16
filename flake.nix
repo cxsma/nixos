@@ -6,6 +6,13 @@
       repo = "nixpkgs";
       ref = "nixos-unstable";
     };
+    nixpkgs-lib = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+      ref = "nixos-unstable";
+      dir = "lib";
+    };
     home-manager = {
       type = "github";
       owner = "nix-community";
