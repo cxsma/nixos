@@ -21,5 +21,10 @@
       owner = "hercules-ci";
       repo = "flake-parts";
     };
+    den = {
+      type = "github";
+      owner = "denful";
+      repo = "den";
+    };
   };
 }
