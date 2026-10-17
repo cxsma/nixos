@@ -33,6 +33,16 @@
         };
       };
     };
+    flakelight = {
+      type = "github";
+      owner = "nix-community";
+      repo = "flakelight";
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs";
+        };
+      };
+    };
     flake-parts = {
       type = "github";
       owner = "hercules-ci";
