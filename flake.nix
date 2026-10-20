@@ -64,4 +64,7 @@
       repo = "import-tree";
     };
   };
+  outputs = inputs@{ nixpkgs, ... }:
+    nixpkgs.lib.foldl nixpkgs.lib.recursiveUpdate {} [
+    ];
 }
