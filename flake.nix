@@ -64,7 +64,20 @@
       repo = "import-tree";
     };
   };
-  outputs = inputs@{ nixpkgs, ... }:
+  outputs = inputs@{ nixpkgs, flakelight, flake-parts, import-tree, ... }:
     nixpkgs.lib.foldl nixpkgs.lib.recursiveUpdate {} [
+      (flakelight ./. {
+        inherit inputs;
+        imports = [
+          (import-tree ./flakelight)
+        ];
+      })
+      (flake-parts.lib.mkFlake {
+        inherit inputs;
+      } {
+        imports = [
+          (import-tree ./flake-parts)
+        ];
+      })
     ];
 }
