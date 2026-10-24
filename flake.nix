@@ -68,16 +68,15 @@
     nixpkgs.lib.foldl nixpkgs.lib.recursiveUpdate {} [
       (flakelight ./. {
         inherit inputs;
-        imports = [
-          (import-tree ./flakelight)
-        ];
+        imports = nixpkgs.lib.optional (nixpkgs.lib.pathExists ./flakelight) (import-tree ./flakelight);
       })
       (flake-parts.lib.mkFlake {
         inherit inputs;
       } {
-        imports = [
-          (import-tree ./flake-parts)
-        ];
+        imports = nixpkgs.lib.flip nixpkgs.lib.pipe [
+          (nixpkgs.lib.filter nixpkgs.lib.pathExists)
+          (nixpkgs.lib.map import-tree)
+        ] [ ./flake-parts ./modules ];
       })
     ];
 }
