@@ -6,13 +6,6 @@
       repo = "nixpkgs";
       ref = "nixos-unstable";
     };
-    nixpkgs-lib = {
-      type = "github";
-      owner = "nixos";
-      repo = "nixpkgs";
-      ref = "nixos-unstable";
-      dir = "lib";
-    };
     home-manager = {
       type = "github";
       owner = "nix-community";
@@ -43,40 +36,6 @@
         };
       };
     };
-    flake-parts = {
-      type = "github";
-      owner = "hercules-ci";
-      repo = "flake-parts";
-      inputs = {
-        nixpkgs-lib = {
-          follows = "nixpkgs-lib";
-        };
-      };
-    };
-    den = {
-      type = "github";
-      owner = "denful";
-      repo = "den";
-    };
-    import-tree = {
-      type = "github";
-      owner = "denful";
-      repo = "import-tree";
-    };
   };
-  outputs = inputs@{ nixpkgs, flakelight, flake-parts, import-tree, ... }:
-    nixpkgs.lib.foldl nixpkgs.lib.recursiveUpdate {} [
-      (flakelight ./. {
-        inherit inputs;
-        imports = nixpkgs.lib.optional (nixpkgs.lib.pathExists ./flakelight) (import-tree ./flakelight);
-      })
-      (flake-parts.lib.mkFlake {
-        inherit inputs;
-      } {
-        imports = nixpkgs.lib.flip nixpkgs.lib.pipe [
-          (nixpkgs.lib.filter nixpkgs.lib.pathExists)
-          (nixpkgs.lib.map import-tree)
-        ] [ ./flake-parts ./modules ];
-      })
-    ];
+  outputs = inputs: inputs.flakelight ./. { inherit inputs; };
 }
